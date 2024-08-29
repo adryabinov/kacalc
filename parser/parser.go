@@ -3,7 +3,6 @@ package parser
 import (
 	"bufio"
 	"errors"
-	"fmt"
 	"kacalc/romanconverter"
 	"log"
 	"os"
@@ -22,11 +21,9 @@ func typeInput(s string) (string, error) {
 	valid_dec, _ := regexp.MatchString(`^([1-9]|10)\s[+|-|*|/]\s([1-9]|10)$`, s)
 	valid_rom, _ := regexp.MatchString(`^(I|II|III|IV|V|VI|VII|VIII|IX|X)\s[+|-|*|/]\s(I|II|III|IV|V|VI|VII|VIII|IX|X)$`, s)
 	if valid_dec {
-		fmt.Println("dec")
 		return "dec", nil
 	}
 	if valid_rom {
-		fmt.Println("rom")
 		return "rom", nil
 	}
 	return "", errors.New("input error")
