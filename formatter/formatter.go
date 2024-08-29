@@ -1,13 +1,13 @@
 package formatter
 
 import (
-	"kacalc/romanconverter"
+	"kacalc/converter"
 	"strconv"
 )
 
 func FormatResult(i int, format string) string {
 	if format == "rom" {
-		result := romanconverter.IntToRom(i)
+		result := converter.IntToRom(i)
 		return result
 	}
 	if format == "dec" {

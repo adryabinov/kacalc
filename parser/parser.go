@@ -3,7 +3,7 @@ package parser
 import (
 	"bufio"
 	"errors"
-	"kacalc/romanconverter"
+	"kacalc/converter"
 	"log"
 	"os"
 	"regexp"
@@ -49,8 +49,8 @@ func ParseInput() (int, int, string, string) {
 			log.Fatal(err)
 		}
 	case "rom":
-		firstArg = romanconverter.RomToInt(splited[0])
-		secondArg = romanconverter.RomToInt(splited[2])
+		firstArg = converter.RomToInt(splited[0])
+		secondArg = converter.RomToInt(splited[2])
 	}
 	return firstArg, secondArg, operator, format
 }

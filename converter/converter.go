@@ -1,4 +1,4 @@
-package romanconverter
+package converter
 
 func RomToInt(rom string) int {
 	mapRomToInt := map[string]int{
