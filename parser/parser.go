@@ -37,7 +37,7 @@ func ParseInput() (int, int, string, string) {
 		log.Fatal(err)
 	}
 	splited := strings.Split(input, " ")
-	operand := splited[1]
+	operator := splited[1]
 	switch format {
 	case "dec":
 		firstArg, err = strconv.Atoi(splited[0])
@@ -52,5 +52,5 @@ func ParseInput() (int, int, string, string) {
 		firstArg = romanconverter.RomToInt(splited[0])
 		secondArg = romanconverter.RomToInt(splited[2])
 	}
-	return firstArg, secondArg, operand, format
+	return firstArg, secondArg, operator, format
 }

@@ -2,10 +2,10 @@ package calculator
 
 import "errors"
 
-func Calculate(a int, b int, operand string, format string) (int, string, error) {
+func Calculate(a int, b int, operator string, format string) (int, string, error) {
 	var result int
 	var err error
-	switch operand {
+	switch operator {
 	case "+":
 		result = a + b
 	case "-":
