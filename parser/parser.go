@@ -2,11 +2,9 @@ package parser
 
 import (
 	"bufio"
-	"errors"
 	"kacalc/converter"
 	"log"
 	"os"
-	"regexp"
 	"strconv"
 	"strings"
 )
@@ -17,40 +15,54 @@ func readLn() string {
 	return input
 }
 
-func typeInput(s string) (string, error) {
-	valid_dec, _ := regexp.MatchString(`^([1-9]|10)\s[+|\-|*|/]\s([1-9]|10)$`, s)
-	valid_rom, _ := regexp.MatchString(`^(I|II|III|IV|V|VI|VII|VIII|IX|X)\s[+|\-|*|/]\s(I|II|III|IV|V|VI|VII|VIII|IX|X)$`, s)
-	if valid_dec {
-		return "dec", nil
-	}
-	if valid_rom {
-		return "rom", nil
-	}
-	return "", errors.New("input error")
-}
-
 func ParseInput() (int, int, string, string) {
 	var firstArg, secondArg int
+	var format1, format2 string
+	var err error
 	input := readLn()
-	format, err := typeInput(input)
-	if err != nil {
-		log.Fatal(err)
-	}
 	splited := strings.Split(input, " ")
-	operator := splited[1]
-	switch format {
-	case "dec":
-		firstArg, err = strconv.Atoi(splited[0])
-		if err != nil {
-			log.Fatal(err)
-		}
-		secondArg, err = strconv.Atoi(splited[2])
-		if err != nil {
-			log.Fatal(err)
-		}
-	case "rom":
-		firstArg = converter.RomToInt(splited[0])
-		secondArg = converter.RomToInt(splited[2])
+	if len(splited) != 3 {
+		log.Fatal("to many arguments")
 	}
-	return firstArg, secondArg, operator, format
+	operator := splited[1]
+	switch operator {
+	case "+":
+	case "-":
+	case "*":
+	case "/":
+	default:
+		log.Fatal("invalid operator")
+	}
+
+	firstArg, err = strconv.Atoi(splited[0])
+	if (err == nil) && (0 < firstArg) && (firstArg <= 10) {
+		format1 = "dec"
+	}
+	if err != nil {
+		firstArg = converter.RomToInt(splited[0])
+		if firstArg != 0 {
+			format1 = "rom"
+		} else {
+			log.Fatal("invalid first arg")
+		}
+	}
+	secondArg, err = strconv.Atoi(splited[2])
+	if (err == nil) && (0 < secondArg) && (secondArg <= 10) {
+		format2 = "dec"
+	}
+	if err != nil {
+		secondArg = converter.RomToInt(splited[2])
+		if secondArg != 0 {
+			format2 = "rom"
+		} else {
+			log.Fatal("invalid second arg")
+		}
+	}
+
+	if format1 == format2 && format1 != "" {
+		return firstArg, secondArg, operator, format1
+	} else {
+		log.Fatal("args must be one type")
+	}
+	return firstArg, secondArg, operator, format1
 }
