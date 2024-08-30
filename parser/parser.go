@@ -18,8 +18,8 @@ func readLn() string {
 }
 
 func typeInput(s string) (string, error) {
-	valid_dec, _ := regexp.MatchString(`^([1-9]|10)\s[+|-|*|/]\s([1-9]|10)$`, s)
-	valid_rom, _ := regexp.MatchString(`^(I|II|III|IV|V|VI|VII|VIII|IX|X)\s[+|-|*|/]\s(I|II|III|IV|V|VI|VII|VIII|IX|X)$`, s)
+	valid_dec, _ := regexp.MatchString(`^([1-9]|10)\s[+|\-|*|/]\s([1-9]|10)$`, s)
+	valid_rom, _ := regexp.MatchString(`^(I|II|III|IV|V|VI|VII|VIII|IX|X)\s[+|\-|*|/]\s(I|II|III|IV|V|VI|VII|VIII|IX|X)$`, s)
 	if valid_dec {
 		return "dec", nil
 	}
